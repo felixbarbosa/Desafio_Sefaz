@@ -36,6 +36,10 @@
 			<p:column>
 				<p:commandButton value="Remover" action="#{usuariosCon.remover(usuario)}" update="@form"/>
 			</p:column>
+			
+			<p:column>
+				<p:commandButton value="Editar" action="#{usuariosCon.telaEditar(usuario)}" update="@form"/>
+			</p:column>
 		
 		</p:dataTable>
 	

@@ -239,6 +239,76 @@ public class ControleBD {
 			}
 		}
 		
+	}
+	
+	
+	public boolean editarFK(Usuario usuarioatual, Usuario usuarionovo, Conexao con) {
+		
+		Statement stmt = null;
+		
+		String query = "UPDATE TELEFONE SET numero = '" + usuarionovo.getTelefone().get(0).getNumero()
+	                 + "', ddd = '" +  usuarionovo.getTelefone().get(0).getDdd() 
+	                 + "' WHERE emailfk = '" + usuarioatual.getEmail() + "'";
+		
+		try {
+			
+			stmt = con.conectar().createStatement();
+			stmt.executeUpdate(query);
+			return true;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+	}
+	
+	//Só edita Nome e Telefone, pois email e senha são dados do login.
+	public boolean editar(Usuario usuarioatual, Usuario usuarionovo, Conexao con) {
+		
+		editarFK(usuarioatual, usuarionovo, con);
+		
+		Statement stmt = null;
+		
+		String query = "UPDATE USUARIOS SET nome = '" + usuarionovo.getNome()
+				     + "' WHERE email = '" + usuarioatual.getEmail() + "'";
+		
+		try {
+			
+			stmt = con.conectar().createStatement();
+			stmt.executeUpdate(query);
+			return true;
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}finally {
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		
 	}
 	

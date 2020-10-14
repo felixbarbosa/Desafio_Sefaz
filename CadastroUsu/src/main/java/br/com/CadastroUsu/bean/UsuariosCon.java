@@ -20,8 +20,10 @@ public class UsuariosCon {
 	private List<Usuario> listaUsu = new ArrayList<Usuario>();
 	private ControleBD controle;
 	private Conexao con;
+	private Usuario usuarioatual;
+	private Usuario usuarionovo;
 	
-	
+
 	//Adicionar um novo usuario
 	public String add() {
 		
@@ -50,9 +52,11 @@ public class UsuariosCon {
 		
 		//Incluindo no banco de dados
 		if(controle.incluir(usuario, con) && controle.incluirFK(telefone, usuario, con)) {
+			usuario = new Usuario();
+			telefone = new Telefone();
 			return "Usuario";
 		}else {
-			return "Cadastro";
+			return "";
 		}
 		
 	}
@@ -72,9 +76,10 @@ public class UsuariosCon {
 		
 		if(controle.login(usuario, con)) {
 			buscar();
+			usuario = new Usuario();
 			return "Logado";
 		}else {
-			return "";
+			return "Cadastro";
 		}
 		
 	}
@@ -88,10 +93,61 @@ public class UsuariosCon {
 		//Se removeu com sucesso, atualize a tabela
 		if(controle.remover(usuario, con)) {
 			buscar();
+			usuario = new Usuario();
 		}else {
 			
 		}
 		
+	}
+	
+	public String telaEditar(Usuario usuario) {
+		usuarioatual = usuario;
+		return "Editar";
+	}
+	
+	//Remover um usuário
+	public String editar() {
+			
+		con = new Conexao();
+		controle = new ControleBD();
+		List<Telefone> listaTel = new ArrayList<Telefone>();
+		
+		//Separando o ddd do telefone
+		String ddds = telefone.getTelefoneComp().substring(1, 3);
+		int ddd = Integer.parseInt(ddds);
+				
+		//Separando o numero do telefone
+		String numero = telefone.getTelefoneComp().substring(5, 14);
+				
+		//Pegando o primeiro digito do numero
+		int digito0 = numero.charAt(0) - '0';
+				
+		//Identificando se o numero é residencial ou celular
+		if(digito0 < 7) {
+			telefone.setTipo("Residencia");
+		}else {
+			telefone.setTipo("Celular");
+		}
+				
+		telefone.setNumero(numero);
+		telefone.setDdd(ddd);
+		
+		listaTel.add(telefone);
+		
+		usuario.setTelefone(listaTel);
+		
+		System.out.println("Nome = " + usuarioatual.getNome());
+			
+		//Se removeu com sucesso, atualize a tabela
+		if(controle.editar(usuarioatual, usuario, con)) {
+			buscar();
+			usuario = new Usuario();
+			telefone = new Telefone();
+			return "Logado";
+		}else {
+			return "";
+		}
+			
 	}
 	
 	//Getters e Setters
@@ -116,6 +172,13 @@ public class UsuariosCon {
 		this.telefone = telefone;
 	}
 	
+	public Usuario getUsuarioAtual() {
+		return usuarioatual;
+	}
+
+	public void setUsuarioatual(Usuario usuarioatual) {
+		this.usuarioatual = usuarioatual;
+	}
 	
 	
 	

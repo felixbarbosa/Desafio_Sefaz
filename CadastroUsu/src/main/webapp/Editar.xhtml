@@ -6,24 +6,24 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       template="Template.xhtml">
 
-	<h1>Login de Usuários</h1>
+<h1>Edição de Usuário</h1>
 	<hr/>
-
+	
 	<h:form>
 	
 		<p:panelGrid columns="2">
 		
-			<p:outputLabel value="Email"/>
-			<p:inputText value="#{usuariosCon.usuario.email}"/>
+			<p:outputLabel value="Nome"/>
+			<p:inputText value="#{usuariosCon.usuario.nome}"/>
 		
-			<p:outputLabel value="Senha"/>
-			<p:password value="#{usuariosCon.usuario.senha}"/>
 			
+			<p:outputLabel value="Telefone"/>
+			<p:inputMask mask="(99) 9999-9999" value="#{usuariosCon.telefone.telefoneComp}"/>
+		
 		</p:panelGrid>
 		
-		<p:commandButton value="Login" action="#{usuariosCon.login()}" update="@form"/>
-		
+		<p:commandButton value="Editar" action="#{usuariosCon.editar()}" update="@form"/>
+	
 	</h:form>
-
 
 </ui:decorate>
