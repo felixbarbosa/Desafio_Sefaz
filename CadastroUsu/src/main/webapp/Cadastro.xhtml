@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="Template.xhtml">
+
+	<h1>Cadastro de Usuário</h1>
+	<hr/>
+	
+	<h:form>
+	
+		<p:panelGrid columns="2">
+		
+			<p:outputLabel value="Nome"/>
+			<p:inputText value="#{usuariosCon.usuario.nome}"/>
+		
+			<p:outputLabel value="EMAIL"/>
+			<p:inputText value="#{usuariosCon.usuario.email}"/>
+			
+			<p:outputLabel value="Telefone"/>
+			<p:inputMask mask="(99) 9999-9999" value="#{usuariosCon.telefone.telefoneComp}"/>
+		
+			<p:outputLabel value="Senha"/>
+			<p:inputText value="#{usuariosCon.usuario.senha}"/>
+		
+		</p:panelGrid>
+		
+		<p:commandButton value="Cadastrar" action="#{usuariosCon.add()}" update="@form"/>
+	
+	</h:form>
+
+</ui:decorate>
